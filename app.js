@@ -7,8 +7,6 @@ var scores = [0, 0];
 // Тоглогчын ээлжиндээ цуглуулж буй оноог хадгалах хувьсагч
 var roundScore = 0;
 
-// Шооны аль талаараа буусныг хадгалах хувьсагч хэрэгтэй 1-6 оноогоор санамсаргүйгээр үүсгэж өгнө
-
 // Програм эхлэхэд бэлтгэе
 
 document.getElementById("score-0").textContent = "0";
@@ -36,28 +34,39 @@ document.querySelector(".btn-roll").addEventListener("click", function () {
     roundScore = roundScore + diceNumber;
     document.getElementById("current-" + activePlayer).textContent = roundScore;
   } else {
-    // 1 буусан тул тоглогчын ээлжийг энэ хэсэгт сольж өгнө.
-
-    // Энэ тоглогчын ээлжиндээ цуглуулсан оноог 0 болгоно
-    roundScore = 0;
-    document.getElementById("current-" + activePlayer).textContent = 0;
-
-    // Тоглогчын ээлжийг нөгөө тоглогч руу шилжүүлнэ.
-    activePlayer === 0 ? (activePlayer = 1) : (activePlayer = 0);
-    // Хэрэв идэвхтэй тоглогч нь 0 байвал идэвхтэй тоглогчыг 1 болго
-    // Үгүй бол идэвхтэй тоглогчыг 0 болго
-
-    // Улаан цэгийг шилжүүлэх код
-    document.querySelector(".player-0-panel").classList.toggle("active");
-    document.querySelector(".player-1-panel").classList.toggle("active");
-
-    // Шоог түр алга болгоно.
-    diceDom.style.display = "none";
-
-    // if(activePlayer === 0) {
-    //     activePlayer = 1;
-    // } else {
-    //     activePlayer = 0;
-    // }
+    // 1 буусан тул тоглогчын ээлжийг энэ хэсэгт сольж өгнө. тоглогчын ээлжиндээ цуглуулсан оноог 0 болгоно
+    switchToNextPlayer();
   }
+});
+
+// Hold товчны эвент листенер
+document.querySelector(".btn-hold").addEventListener("click", function () {
+  // Уг тоглогчын ээлжийн цуглуулсан оноог глобал оноо дээр нь нэмж өгнө.
+  scores[activePlayer] = scores[activePlayer] + roundScore;
+  document.getElementById("score-" + activePlayer).textContent =
+    scores[activePlayer];
+  // Уг тоглогчын хожсон эсэхийг шалгах
+  if (scores[activePlayer] >= 20) {
+    document.getElementById("name-" + activePlayer).textContent = "WINNER!!!";
+    document.querySelector("player-" + activePlayer + "-panel").classList.add =
+      "winner";
+  } else {
+    switchToNextPlayer();
+  }
+});
+
+function switchToNextPlayer() {
+  roundScore = 0;
+  document.getElementById("current-" + activePlayer).textContent = 0;
+
+  activePlayer === 0 ? (activePlayer = 1) : (activePlayer = 0);
+  document
+    .querySelector(".player-" + activePlayer + "-panel")
+    .classList.toggle("active");
+  diceDom.style.display = "none";
+}
+
+// Шинэ тоглоом эхлүүлэх эвент листенер
+document.querySelector(".btn-new").addEventListener("click", function () {
+  alert("clicked");
 });
