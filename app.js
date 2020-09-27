@@ -53,7 +53,7 @@ function initGame() {
 }
 
 // Шоог шидэх эвент листенер
-document.querySelector(".btn-roll").addEventListener("click", function () {
+document.querySelector(".btn-roll").addEventListener("click", function() {
   if (isNewGame) {
     // 1 - 6 доторх санамсаргүй нэг тоо гаргаж авна
     var diceNumber = Math.floor(Math.random() * 6) + 1;
@@ -81,7 +81,7 @@ document.querySelector(".btn-roll").addEventListener("click", function () {
 });
 
 // HOLD товчны эвент листенер
-document.querySelector(".btn-hold").addEventListener("click", function () {
+document.querySelector(".btn-hold").addEventListener("click", function() {
   if (isNewGame) {
     // Уг тоглогчийн цуглуулсан ээлжний оноог глобаль оноон дээр нь нэмж өгнө.
     scores[activePlayer] = scores[activePlayer] + roundScore;
@@ -91,7 +91,7 @@ document.querySelector(".btn-hold").addEventListener("click", function () {
       scores[activePlayer];
 
     // Уг тоглогч хожсон эсэхийг (оноо нь 100-с их эсэх) шалгах
-    if (scores[activePlayer] >= 20) {
+    if (scores[activePlayer] >= 100) {
       // Тоглоомыг дууссан төлөвт оруулна
       isNewGame = false;
 
